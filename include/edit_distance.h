@@ -13,9 +13,13 @@ class DistanceEstimator {
         float calculate_distance(std::string_view matching_string);
     private:
     std::string_view matching_string_;
-    std::vector<float> distance_buffer_[2];
+    std::vector<float> distance_buffer_;
+
+    // Distance constants:
+    static constexpr float kSkipWeight = 1.f;
+    static constexpr float kReplaceWeight = 1.f;
 };
-`
+
 } // namespace grammarly
 
 #endif // _EDIT_DISTANCE_H_
