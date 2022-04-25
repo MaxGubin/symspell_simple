@@ -14,7 +14,7 @@ float DistanceEstimator::calculate_distance(std::string_view test_string) {
     // Initialize weights.
     distance_buffer_[0] = 0.f;
     for (auto i = 1; i< distance_buffer_.size(); ++i) {
-        distance_buffer_[i] = distance_buffer_[i-1] + kSkipWeight_;
+        distance_buffer_[i] = distance_buffer_[i-1] + kSkipWeight;
     }
     float prev_weight = 0.f;
     for(size_t i=1;i<distance_buffer_.size();++i) {

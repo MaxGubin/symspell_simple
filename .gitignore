@@ -1,1 +1,7 @@
 build
+bin
+CMakeFiles
+_deps
+debug
+lib
+*.cmake
