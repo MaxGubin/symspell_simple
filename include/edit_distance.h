@@ -18,7 +18,8 @@ class DistanceEstimator {
         float calculate_distance(std::string_view matching_string);
     private:
     std::string_view matching_string_;
-    std::vector<float> distance_buffer_;
+    std::vector<float> distance_buffer0_;
+    std::vector<float> distance_buffer1_;
 };
 
 } // namespace grammarly
