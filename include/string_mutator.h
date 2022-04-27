@@ -7,16 +7,15 @@
 namespace grammarly {
 namespace {
 template<typename Callback>
-void process_mutable_string(std::string& modifiable, int num_delete, Callback call) {
-    for (auto iter = std::begin(modifiable); iter != std::end(modifiable);++iter) {
-        const auto curr_letter = *iter;
-        modifiable.erase(iter);
+void process_mutable_string(std::string& modifiable, int start_index, int num_delete, Callback call) {
+    for (auto i = start_index; i < modifiable.length();++i) {
+        const auto curr_letter = modifiable[i];
+        modifiable.erase(i, 1);
         call(modifiable);
-        if (num_delete > 0) {
-            process_mutable_string(modifiable, num_delete-1, call);
+        if (num_delete > 0 && modifiable.length() > 1) {
+            process_mutable_string(modifiable, i, num_delete-1, call);
         }
-        modifiable.insert(iter, curr_letter);
-
+        modifiable.insert(i, 1, curr_letter);
     }
 }
 
@@ -28,7 +27,7 @@ void mutate_by_deletion(std::string_view str, int num_delete, Callback call) {
     // Create a buffer string.
     std::string modifiable{str};
     if (num_delete > 0) {
-        process_mutable_string(modifiable, num_delete-1, call);
+        process_mutable_string(modifiable, 0, num_delete-1, call);
     }
 }
 } // namespace grammarly
