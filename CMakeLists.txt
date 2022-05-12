@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include(FetchContent)
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
 
 FetchContent_MakeAvailable(googletest)
@@ -31,8 +31,19 @@ add_executable(
 target_link_libraries(
   edit_distance_test
   edit_distance
+  gmock
   gtest_main
+  dictionary_generator
 )
 
 include(GoogleTest)
 gtest_discover_tests(edit_distance_test)
+
+# Vocabulary generator utility.
+
+file(GLOB GENERATOR_SRCS src/generator/*.cpp)
+
+add_executable(
+  dictionary_generator
+  ${GENERATOR_SRCS}
+)
